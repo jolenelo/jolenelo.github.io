@@ -272,7 +272,7 @@ function chart(selection) {
       })
       .attr("d", d3.svg.arc().innerRadius(ir).outerRadius(or).startAngle(sa).endAngle(ea))
       .attr("stroke", function(d) {
-        return '#949494'; //colour of outline of the chart
+        return '#ffffff'; //colour of outline of the chart
       })
       .attr("fill", function(d) {
         return color(accessor(d)); //color scale of the chart

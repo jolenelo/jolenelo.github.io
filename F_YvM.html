@@ -97,7 +97,7 @@ var chart = circularHeatChart()
   .segmentLabels(segment_labels);
 
 chart.accessor(function(d) {
-  return d.Average/5;
+  return d.Average/6;
 })
 
 var svg = d3.select(dom_element_to_append_to)
@@ -272,7 +272,7 @@ function chart(selection) {
       })
       .attr("d", d3.svg.arc().innerRadius(ir).outerRadius(or).startAngle(sa).endAngle(ea))
       .attr("stroke", function(d) {
-        return '#949494'; //colour of outline of the chart
+        return '#ffffff'; //colour of outline of the chart
       })
       .attr("fill", function(d) {
         return color(accessor(d)); //color scale of the chart

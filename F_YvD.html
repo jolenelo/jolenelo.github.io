@@ -90,7 +90,7 @@ var chart = circularHeatChart()
   .segmentLabels(segment_labels);
 
 chart.accessor(function(d) {
-  return d.Average/5;
+  return d.Average/10;
 })
 
 var svg = d3.select(dom_element_to_append_to)
