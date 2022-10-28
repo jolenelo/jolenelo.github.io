@@ -1,0 +1,391 @@
+<html>
+
+<meta charset="utf-8" />
+<script src="https://d3js.org/d3.v3.js"></script>
+<!-- <h1>Feloniously Killed Officers (Year vs Month)</h1> -->
+<div id="cont" class="container-fluid text-center">
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+      <div id="chart"></div>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+
+
+
+</div>
+<style> 
+.margin30 {
+    margin-bottom: 30px;
+  }
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  path:hover {
+    fill: white;
+  }
+  .tooltip {
+    background: #eee;
+    box-shadow: 0 0 5px #999999;
+    color: #333;
+    font-size: 12px;
+    left: 130px;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    top: 95px;
+    z-index: 10;
+    display: block;
+    opacity: 0;
+}
+</style>
+<body>
+<svg class="chart"></svg>
+
+<script>
+var data =[{"Day": 2012,"Time": "January","Average": 6}, {"Day": 2012,"Time": "February","Average": 4}, {"Day": 2012,"Time": "March","Average": 1}, {"Day": 2012,"Time": "April","Average": 4}, {"Day": 2012,"Time": "May","Average": 3}, {"Day": 2012,"Time": "June","Average": 4}, {"Day": 2012,"Time": "July","Average": 2}, {"Day": 2012,"Time": "August","Average": 8}, {"Day": 2012,"Time": "September","Average": 5}, {"Day": 2012,"Time": "October","Average": 1}, {"Day": 2012,"Time": "November","Average": 4}, {"Day": 2012,"Time": "December","Average": 7}, {"Day": 2013,"Time": "January","Average": 2}, {"Day": 2013,"Time": "February","Average": 5}, {"Day": 2013,"Time": "March","Average": 1}, {"Day": 2013,"Time": "April","Average": 3}, {"Day": 2013,"Time": "May","Average": 1}, {"Day": 2013,"Time": "June","Average": 2}, {"Day": 2013,"Time": "July","Average": 1}, {"Day": 2013,"Time": "August","Average": 2}, {"Day": 2013,"Time": "September","Average": 4}, {"Day": 2013,"Time": "October","Average": 1}, {"Day": 2013,"Time": "November","Average": 0}, {"Day": 2013,"Time": "December","Average": 5}, {"Day": 2014,"Time": "January","Average": 2}, {"Day": 2014,"Time": "February","Average": 1}, {"Day": 2014,"Time": "March","Average": 8}, {"Day": 2014,"Time": "April","Average": 1}, {"Day": 2014,"Time": "May","Average": 9}, {"Day": 2014,"Time": "June","Average": 4}, {"Day": 2014,"Time": "July","Average": 4}, {"Day": 2014,"Time": "August","Average": 3}, {"Day": 2014,"Time": "September","Average": 6}, {"Day": 2014,"Time": "October","Average": 4}, {"Day": 2014,"Time": "November","Average": 5}, {"Day": 2014,"Time": "December","Average": 4}, {"Day": 2015,"Time": "January","Average": 0}, {"Day": 2015,"Time": "February","Average": 0}, {"Day": 2015,"Time": "March","Average": 6}, {"Day": 2015,"Time": "April","Average": 0}, {"Day": 2015,"Time": "May","Average": 10}, {"Day": 2015,"Time": "June","Average": 3}, {"Day": 2015,"Time": "July","Average": 1}, {"Day": 2015,"Time": "August","Average": 6}, {"Day": 2015,"Time": "September","Average": 4}, {"Day": 2015,"Time": "October","Average": 4}, {"Day": 2015,"Time": "November","Average": 4}, {"Day": 2015,"Time": "December","Average": 3}, {"Day": 2016,"Time": "January","Average": 2}, {"Day": 2016,"Time": "February","Average": 9}, {"Day": 2016,"Time": "March","Average": 5}, {"Day": 2016,"Time": "April","Average": 1}, {"Day": 2016,"Time": "May","Average": 3}, {"Day": 2016,"Time": "June","Average": 3}, {"Day": 2016,"Time": "July","Average": 10}, {"Day": 2016,"Time": "August","Average": 5}, {"Day": 2016,"Time": "September","Average": 3}, {"Day": 2016,"Time": "October","Average": 9}, {"Day": 2016,"Time": "November","Average": 13}, {"Day": 2016,"Time": "December","Average": 3}, {"Day": 2017,"Time": "January","Average": 4}, {"Day": 2017,"Time": "February","Average": 2}, {"Day": 2017,"Time": "March","Average": 4}, {"Day": 2017,"Time": "April","Average": 4}, {"Day": 2017,"Time": "May","Average": 7}, {"Day": 2017,"Time": "June","Average": 2}, {"Day": 2017,"Time": "July","Average": 4}, {"Day": 2017,"Time": "August","Average": 5}, {"Day": 2017,"Time": "September","Average": 2}, {"Day": 2017,"Time": "October","Average": 5}, {"Day": 2017,"Time": "November","Average": 5}, {"Day": 2017,"Time": "December","Average": 2}, {"Day": 2018,"Time": "January","Average": 4}, {"Day": 2018,"Time": "February","Average": 8}, {"Day": 2018,"Time": "March","Average": 7}, {"Day": 2018,"Time": "April","Average": 6}, {"Day": 2018,"Time": "May","Average": 4}, {"Day": 2018,"Time": "June","Average": 3}, {"Day": 2018,"Time": "July","Average": 6}, {"Day": 2018,"Time": "August","Average": 0}, {"Day": 2018,"Time": "September","Average": 7}, {"Day": 2018,"Time": "October","Average": 4}, {"Day": 2018,"Time": "November","Average": 4}, {"Day": 2018,"Time": "December","Average": 4}, {"Day": 2019,"Time": "January","Average": 4}, {"Day": 2019,"Time": "February","Average": 5}, {"Day": 2019,"Time": "March","Average": 3}, {"Day": 2019,"Time": "April","Average": 2}, {"Day": 2019,"Time": "May","Average": 5}, {"Day": 2019,"Time": "June","Average": 5}, {"Day": 2019,"Time": "July","Average": 3}, {"Day": 2019,"Time": "August","Average": 3}, {"Day": 2019,"Time": "September","Average": 3}, {"Day": 2019,"Time": "October","Average": 1}, {"Day": 2019,"Time": "November","Average": 6}, {"Day": 2019,"Time": "December","Average": 8}, {"Day": 2020,"Time": "January","Average": 4}, {"Day": 2020,"Time": "February","Average": 4}, {"Day": 2020,"Time": "March","Average": 7}, {"Day": 2020,"Time": "April","Average": 4}, {"Day": 2020,"Time": "May","Average": 3}, {"Day": 2020,"Time": "June","Average": 5}, {"Day": 2020,"Time": "July","Average": 3}, {"Day": 2020,"Time": "August","Average": 3}, {"Day": 2020,"Time": "September","Average": 3}, {"Day": 2020,"Time": "October","Average": 5}, {"Day": 2020,"Time": "November","Average": 2}, {"Day": 2020,"Time": "December","Average": 3}, {"Day": 2021,"Time": "January","Average": 7}, {"Day": 2021,"Time": "February","Average": 7}, {"Day": 2021,"Time": "March","Average": 3}, {"Day": 2021,"Time": "April","Average": 7}, {"Day": 2021,"Time": "May","Average": 7}, {"Day": 2021,"Time": "June","Average": 6}, {"Day": 2021,"Time": "July","Average": 8}, {"Day": 2021,"Time": "August","Average": 5}, {"Day": 2021,"Time": "September","Average": 4}, {"Day": 2021,"Time": "October","Average": 8}, {"Day": 2021,"Time": "November","Average": 5}, {"Day": 2021,"Time": "December","Average": 6}, ];
+
+var radial_labels = ["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021",];
+
+var segment_labels = [
+"January",
+"February",
+"March",
+"April",
+"May",
+"June",
+"July",
+"August",
+"September",
+"October",
+"November",
+"December",                    ];
+
+loadCircularHeatMap(data, "#chart", radial_labels, segment_labels);
+
+var numSegments = 12;
+function loadCircularHeatMap(dataset, dom_element_to_append_to, radial_labels, segment_labels) {
+
+var margin = {
+  top: 50,
+  right: 50,
+  bottom: 50,
+  left: 50
+};
+
+var width = 1000 - margin.left - margin.right;
+
+var height = width;
+var innerRadius = 100; // width/14;
+
+var segmentHeight = (width - margin.top - margin.bottom - 2 * innerRadius) / (2 * radial_labels.length);
+
+var chart = circularHeatChart()
+  .innerRadius(innerRadius)
+  .segmentHeight(segmentHeight)
+  .domain([0, 0.5, 1])
+  .range(["#ffffff", "#FFEBEE", "#C62828"])
+  .radialLabels(radial_labels)
+  .segmentLabels(segment_labels);
+
+chart.accessor(function(d) {
+  return d.Average/5;
+})
+
+var svg = d3.select(dom_element_to_append_to)
+  .selectAll('svg')
+  .data([dataset])
+  .enter()
+  .append('svg')
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append('g')
+  .attr("transform",
+    "translate(" + ((width) / 2 - (radial_labels.length * segmentHeight + innerRadius)) + "," + margin.top + ")")
+  .call(chart);
+
+var tooltip = d3.select(dom_element_to_append_to)
+  .append('div')
+  .attr('class', 'tooltip');
+
+tooltip.append('div')
+  .attr('class', 'time');
+tooltip.append('div')
+  .attr('class', 'average');
+tooltip.append('div')
+  .attr('class', 'day');
+
+svg.selectAll("path")
+  .on('mouseover', function(d,i) {
+    var targetIndex = Math.floor(i / numSegments); //the layer you are hovering
+              var zoomSize = 10; //inner 10px and outer 10px
+              var layerCnt = data.length / numSegments;
+
+
+              d3.selectAll("path.segment") //.arc indicates segment
+                  .transition().duration(200) //transtion effect
+                  .attr("d", d3.svg.arc() //set d again
+                      .innerRadius(ir)
+                      .outerRadius(or)
+                      .startAngle(sa)
+                      .endAngle(ea))
+
+
+              function getRadius(floor) {
+                  if (floor === 0) { //inner radius doesn't change
+                      return innerRadius;
+                  }
+                  if (floor === layerCnt) { //outer radius doesn't change
+                      return innerRadius + layerCnt * segmentHeight;
+                  }
+                  if (floor <= targetIndex) { //it's math
+                      return innerRadius + floor * segmentHeight - zoomSize * (floor / targetIndex);
+                  } else { //math again
+                      return innerRadius + floor * segmentHeight + zoomSize * ((layerCnt - floor) / (layerCnt - targetIndex));
+                  }
+              }
+
+              function ir(d, i) {
+                  return getRadius(Math.floor(i / numSegments));
+              }
+
+              function or(d, i) {
+                  return getRadius(Math.floor(i / numSegments) + 1);
+              }
+    // increase the segment height of the one being hovered as well as all others of the same date
+    // while decreasing the height of all others accordingly
+
+    d3.selectAll("path.segment-" + d.Day).style("opacity", function(p) {
+      return 0.6
+    });
+
+    tooltip.select('.time').html("<b> Month: " + d.Time + "</b>");
+    tooltip.select('.day').html("<b> Year: " + d.Day + "</b>");
+    tooltip.select('.average').html("<b> Number of Victim Officers: " + d.Average + "</b>");
+    tooltip.style('display', 'block');
+    tooltip.style('opacity', 2);
+  })
+  .on('mousemove', function(d) {
+    tooltip.style('top', (d3.event.layerY + 10) + 'px')
+      .style('left', (d3.event.layerX - 25) + 'px');
+  })
+  .on('mouseout', function(d,i) {
+    tooltip.style('display', 'none');
+    tooltip.style('opacity', 0);
+    //  var time = d.Time;
+    //  var timeCleaned = time.split(":").join("-");
+    //  var segment = d3.select("#segment-"+d.Day +"-"+timeCleaned); //designate selector variable for brevity
+    //  var fillcolor = segment.select("desc").text();  //access original color from desc
+    //  segment.style("fill", fillcolor);
+
+    d3.selectAll("path.segment-" + d.Day).style("opacity", function(p) {
+      return 1
+    });
+    var targetIndex = Math.floor(i / numSegments);
+              var zoomSize = 10;
+              var layerCnt = data.length / numSegments;
+
+
+              d3.selectAll("path.segment")
+                  .transition().duration(200)
+                  .attr("d", d3.svg.arc()
+                      .innerRadius(ir)
+                      .outerRadius(or)
+                      .startAngle(sa)
+                      .endAngle(ea))
+
+              function getRadius(floor) {
+                  return innerRadius + floor * segmentHeight;
+              }
+
+              function ir(d, i) {
+
+                  return getRadius(Math.floor(i / numSegments));
+              }
+
+              function or(d, i) {
+                  return getRadius(Math.floor(i / numSegments) + 1);
+              }
+  })
+  .append("desc") //append the current color as a desc element
+  .text(function(d) {
+    var color = d3.scale.linear().domain([0, 0.5, 1]).range(["#ffffd9", "#7fcdbb", "#225ea8"]);
+    // how to access a function within reusable charts
+    console.log(color(d.Average));
+    return color(d.Average);
+  });
+}
+
+function circularHeatChart() {
+var margin = {
+    top: 20,
+    right: 50,
+    bottom: 50,
+    left: 20
+  },
+  innerRadius = 20,
+  segmentHeight = 20,
+  numSegments = 12;
+  domain = null,
+  range = ["white", "red"],
+  accessor = function(d) {
+    return d;
+  },
+  radialLabels = segmentLabels = [];
+
+function chart(selection) {
+  selection.each(function(data) {
+    var svg = d3.select(this);
+
+    var offset = innerRadius + Math.ceil(data.length / numSegments) * segmentHeight;
+    g = svg.append("g")
+      .classed("circular-heat", true)
+      .attr("transform", "translate(" + parseInt(margin.left + offset) + "," + parseInt(margin.top + offset) + ")");
+
+    var autoDomain = false;
+    if (domain === null) {
+      domain = d3.extent(data, accessor);
+      autoDomain = true;
+    }
+    var color = d3.scale.linear().domain(domain).range(range);
+    if (autoDomain)
+      domain = null;
+
+    g.selectAll("path").data(data)
+      .enter().append("path")
+      // .attr("class","segment")
+      .attr("class", function(d) {
+        return "segment-" + d.Day+" segment"
+      })
+      .attr("id", function(d) {
+        var time = d.Time;
+        var timeCleaned = time.split(":").join("-");
+        return "segment-" + d.Day + "-" + timeCleaned;
+      })
+      .attr("d", d3.svg.arc().innerRadius(ir).outerRadius(or).startAngle(sa).endAngle(ea))
+      .attr("stroke", function(d) {
+        return '#949494'; //colour of outline of the chart
+      })
+      .attr("fill", function(d) {
+        return color(accessor(d)); //color scale of the chart
+      });
+
+    // Unique id so that the text path defs are unique - is there a better way to do this?
+    var id = d3.selectAll(".circular-heat")[0].length;
+
+
+    //Segment labels
+    var segmentLabelOffset = 5;
+    var r = innerRadius + Math.ceil(data.length / numSegments) * segmentHeight + segmentLabelOffset;
+    labels = svg.append("g")
+      .classed("labels", true)
+      .classed("segment", true)
+      .attr("transform", "translate(" + parseInt(margin.left + offset) + "," + parseInt(margin.top + offset) + ")");
+
+    labels.append("def")
+      .append("path")
+      .attr("id", "segment-label-path-" + id)
+      .attr("d", "m0 -" + r + " a" + r + " " + r + " 0 1 1 -1 0");
+
+    labels.selectAll("text")
+      .data(segmentLabels).enter()
+      .append("text")
+      .append("textPath")
+      .attr("xlink:href", "#segment-label-path-" + id)
+      .style("font-size", "20px")
+      .attr("font-family", "Verdana")
+      .attr("startOffset", function(d, i) {
+        return i * 100 / numSegments + 1.5 + "%";
+      })
+      .text(function(d) {
+        return d;
+      });
+
+  });
+
+}
+
+/* Arc functions */
+ir = function(d, i) {
+  return innerRadius + Math.floor(i / numSegments) * segmentHeight;
+}
+or = function(d, i) {
+  return innerRadius + segmentHeight + Math.floor(i / numSegments) * segmentHeight;
+}
+sa = function(d, i) {
+  return (i * 2 * Math.PI) / numSegments;
+}
+ea = function(d, i) {
+  return ((i + 1) * 2 * Math.PI) / numSegments;
+}
+
+/* Configuration getters/setters */
+chart.margin = function(_) {
+  if (!arguments.length) return margin;
+  margin = _;
+  return chart;
+};
+
+chart.innerRadius = function(_) {
+  if (!arguments.length) return innerRadius;
+  innerRadius = _;
+  return chart;
+};
+
+chart.numSegments = function(_) {
+  if (!arguments.length) return numSegments;
+  numSegments = _;
+  return chart;
+};
+
+chart.segmentHeight = function(_) {
+  if (!arguments.length) return segmentHeight;
+  segmentHeight = _;
+  return chart;
+};
+
+chart.domain = function(_) {
+  if (!arguments.length) return domain;
+  domain = _;
+  return chart;
+};
+
+chart.range = function(_) {
+  if (!arguments.length) return range;
+  range = _;
+  return chart;
+};
+
+chart.radialLabels = function(_) {
+  if (!arguments.length) return radialLabels;
+  if (_ == null) _ = [];
+  radialLabels = _;
+  return chart;
+};
+
+chart.segmentLabels = function(_) {
+  if (!arguments.length) return segmentLabels;
+  if (_ == null) _ = [];
+  segmentLabels = _;
+  return chart;
+};
+
+chart.accessor = function(_) {
+  if (!arguments.length) return accessor;
+  accessor = _;
+  return chart;
+};
+
+return chart;
+}
+</script>
+</body>
+</html>
