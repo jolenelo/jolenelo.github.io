@@ -81,7 +81,7 @@ var margin = {
   left: 50
 };
 
-var width = 1000 - margin.left - margin.right;
+var width = 700 - margin.left - margin.right;
 
 var height = width;
 var innerRadius = 100; // width/14;
@@ -300,7 +300,7 @@ function chart(selection) {
       .append("text")
       .append("textPath")
       .attr("xlink:href", "#segment-label-path-" + id)
-      .style("font-size", "20px")
+      .style("font-size", "12px")
       .attr("font-family", "Verdana")
       .attr("startOffset", function(d, i) {
         return i * 100 / numSegments + 1.5 + "%";
