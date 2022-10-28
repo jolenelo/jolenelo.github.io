@@ -11,16 +11,21 @@
   .margin30 {
     margin-bottom: 0px;
   }
+
   .Row {
     display: table;
-    width: 100%; /*Optional*/
-    table-layout: fixed; /*Optional*/
-    border-spacing: 10px; /*Optional*/
-}
-.Column {
+    width: 100%;
+    /*Optional*/
+    table-layout: fixed;
+    /*Optional*/
+    border-spacing: 10px;
+    /*Optional*/
+  }
+
+  .Column {
     display: table-cell;
     /* background-color: red; Optional */
-}
+  }
 
   .axis path,
   .axis line {
@@ -83,10 +88,10 @@
         left: 50
       };
 
-      var width = 700 - margin.left - margin.right;
+      var width = 500 - margin.left - margin.right;
 
       var height = width;
-      var innerRadius = 100; // width/14;
+      var innerRadius = 50; // width/14;
 
       var segmentHeight = (width - margin.top - margin.bottom - 2 * innerRadius) / (2 * radial_labels.length);
 
@@ -228,15 +233,15 @@
 
     function circularHeatChart() {
       var margin = {
-        top: 20,
-    right: 50,
-    bottom: 50,
-    left: 20
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
       },
         innerRadius = 20,
         segmentHeight = 20,
         numSegments = 12;
-        domain = null,
+      domain = null,
         range = ["white", "red"],
         accessor = function (d) {
           return d;
@@ -302,7 +307,7 @@
             .append("text")
             .append("textPath")
             .attr("xlink:href", "#segment-label-path-" + id)
-            .style("font-size", "10px")
+            .style("font-size", "8px")
             .attr("font-family", "Verdana")
             .attr("startOffset", function (d, i) {
               return i * 100 / numSegments + 1.5 + "%";
