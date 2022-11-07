@@ -1,0 +1,184 @@
+<html>
+<meta charset="utf-8" />
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/sankey.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container"></div>
+<style>
+    #container {
+        min-width: 1000px;
+        max-width: 1200px;
+        height: 600px;
+        margin: 1em auto;
+        /* border: 1px solid silver; */
+    }
+
+    #csv {
+        display: none;
+    }
+</style>
+<script>
+    Highcharts.chart('container', {
+        plotOptions: {
+            sankey: {
+                nodeWidth: 20
+            },
+        },
+        chart: {
+            inverted: true
+        },
+        title: {
+            text: 'Location, Lighting and Weather Conditions (2012-2021)'
+        },
+        series: [{
+            curveFactor: 0,
+            colors: ['#5c5d61'],
+            keys: ['from', 'to', 'weight', 'tooltip', 'color', 'fromp', 'top', 'fromt', 'tot'],
+            data: [
+                // IOL to Lighting
+                ['Outside', 'Daylight', 174, ' ', '#ff9e3d', '42.65', '87.88', '408', '198',],
+                ['Outside', 'Artificial', 68, ' ', '#ff9e3d', '16.67', '65.38', '408', '104',],
+                ['Outside', 'Dark', 90, ' ', '#ff9e3d', '22.06', '89.11', '408', '101',],
+                ['Outside', 'Unknown Lighting', 44, ' ', '#ff9e3d', '10.78', '74.58', '408', '59',],
+                ['Outside', 'Dusk', 21, ' ', '#ff9e3d', '5.15', '100.0', '408', '21',],
+                ['Outside', 'Dawn', 11, ' ', '#ff9e3d', '2.7', '91.67', '408', '12',],
+                ['Inside', 'Daylight', 24, ' ', '#6dc8cf', '27.59', '12.12', '87', '198',],
+                ['Inside', 'Artificial', 36, ' ', '#6dc8cf', '41.38', '34.62', '87', '104',],
+                ['Inside', 'Dark', 11, ' ', '#6dc8cf', '12.64', '10.89', '87', '101',],
+                ['Inside', 'Unknown Lighting', 15, ' ', '#6dc8cf', '17.24', '25.42', '87', '59',],
+                ['Inside', 'Dusk', 0, ' ', '#6dc8cf', '0.0', '0.0', '87', '21',],
+                ['Inside', 'Dawn', 1, ' ', '#6dc8cf', '1.15', '8.33', '87', '12',],
+
+                // Lighting to Location
+                ['Daylight', 'Public Space', 88, ' ', '#ff9e3d', '44.44', '43.14', '198', '204',],
+                ['Daylight', 'Residential', 63, ' ', '#ff9e3d', '31.82', '35.39', '198', '178',],
+                ['Daylight', 'Commercial', 15, ' ', '#ff9e3d', '7.58', '17.65', '198', '85',],
+                ['Daylight', 'Government', 8, ' ', '#ff9e3d', '4.04', '28.57', '198', '28',],
+                ['Artificial', 'Public Space', 26, ' ', '#ff9e3d', '25.0', '12.75', '104', '204',],
+                ['Artificial', 'Residential', 14, ' ', '#ff9e3d', '13.46', '7.87', '104', '178',],
+                ['Artificial', 'Commercial', 23, ' ', '#ff9e3d', '22.12', '27.06', '104', '85',],
+                ['Artificial', 'Government', 5, ' ', '#ff9e3d', '4.81', '17.86', '104', '28',],
+                ['Dark', 'Public Space', 49, ' ', '#ff9e3d', '48.51', '24.02', '101', '204',],
+                ['Dark', 'Residential', 25, ' ', '#ff9e3d', '24.75', '14.04', '101', '178',],
+                ['Dark', 'Commercial', 13, ' ', '#ff9e3d', '12.87', '15.29', '101', '85',],
+                ['Dark', 'Government', 3, ' ', '#ff9e3d', '2.97', '10.71', '101', '28',],
+                ['Unknown Lighting', 'Public Space', 23, ' ', '#ff9e3d', '38.98', '11.27', '59', '204',],
+                ['Unknown Lighting', 'Residential', 15, ' ', '#ff9e3d', '25.42', '8.43', '59', '178',],
+                ['Unknown Lighting', 'Commercial', 6, ' ', '#ff9e3d', '10.17', '7.06', '59', '85',],
+                ['Unknown Lighting', 'Government', 0, ' ', '#ff9e3d', '0.0', '0.0', '59', '28',],
+                ['Dusk', 'Public Space', 12, ' ', '#ff9e3d', '57.14', '5.88', '21', '204',],
+                ['Dusk', 'Residential', 7, ' ', '#ff9e3d', '33.33', '3.93', '21', '178',],
+                ['Dusk', 'Commercial', 2, ' ', '#ff9e3d', '9.52', '2.35', '21', '85',],
+                ['Dusk', 'Government', 0, ' ', '#ff9e3d', '0.0', '0.0', '21', '28',],
+                ['Dawn', 'Public Space', 3, ' ', '#ff9e3d', '25.0', '1.47', '12', '204',],
+                ['Dawn', 'Residential', 6, ' ', '#ff9e3d', '50.0', '3.37', '12', '178',],
+                ['Dawn', 'Commercial', 2, ' ', '#ff9e3d', '16.67', '2.35', '12', '85',],
+                ['Dawn', 'Government', 0, ' ', '#ff9e3d', '0.0', '0.0', '12', '28',],
+                ['Daylight', 'Public Space', 1, ' ', '#6dc8cf', '0.51', '0.49', '198', '204',],
+                ['Daylight', 'Residential', 16, ' ', '#6dc8cf', '8.08', '8.99', '198', '178',],
+                ['Daylight', 'Commercial', 6, ' ', '#6dc8cf', '3.03', '7.06', '198', '85',],
+                ['Daylight', 'Government', 1, ' ', '#6dc8cf', '0.51', '3.57', '198', '28',],
+                ['Artificial', 'Public Space', 0, ' ', '#6dc8cf', '0.0', '0.0', '104', '204',],
+                ['Artificial', 'Residential', 13, ' ', '#6dc8cf', '12.5', '7.3', '104', '178',],
+                ['Artificial', 'Commercial', 15, ' ', '#6dc8cf', '14.42', '17.65', '104', '85',],
+                ['Artificial', 'Government', 8, ' ', '#6dc8cf', '7.69', '28.57', '104', '28',],
+                ['Dark', 'Public Space', 0, ' ', '#6dc8cf', '0.0', '0.0', '101', '204',],
+                ['Dark', 'Residential', 10, ' ', '#6dc8cf', '9.9', '5.62', '101', '178',],
+                ['Dark', 'Commercial', 1, ' ', '#6dc8cf', '0.99', '1.18', '101', '85',],
+                ['Dark', 'Government', 0, ' ', '#6dc8cf', '0.0', '0.0', '101', '28',],
+                ['Unknown Lighting', 'Public Space', 2, ' ', '#6dc8cf', '3.39', '0.98', '59', '204',],
+                ['Unknown Lighting', 'Residential', 8, ' ', '#6dc8cf', '13.56', '4.49', '59', '178',],
+                ['Unknown Lighting', 'Commercial', 2, ' ', '#6dc8cf', '3.39', '2.35', '59', '85',],
+                ['Unknown Lighting', 'Government', 3, ' ', '#6dc8cf', '5.08', '10.71', '59', '28',],
+                ['Dusk', 'Public Space', 0, ' ', '#6dc8cf', '0.0', '0.0', '21', '204',],
+                ['Dusk', 'Residential', 0, ' ', '#6dc8cf', '0.0', '0.0', '21', '178',],
+                ['Dusk', 'Commercial', 0, ' ', '#6dc8cf', '0.0', '0.0', '21', '85',],
+                ['Dusk', 'Government', 0, ' ', '#6dc8cf', '0.0', '0.0', '21', '28',],
+                ['Dawn', 'Public Space', 0, ' ', '#6dc8cf', '0.0', '0.0', '12', '204',],
+                ['Dawn', 'Residential', 1, ' ', '#6dc8cf', '8.33', '0.56', '12', '178',],
+                ['Dawn', 'Commercial', 0, ' ', '#6dc8cf', '0.0', '0.0', '12', '85',],
+                ['Dawn', 'Government', 0, ' ', '#6dc8cf', '0.0', '0.0', '12', '28',],
+
+                // Location to Weather
+                ['Public Space', 'Clear', 133, ' ', '#ff9e3d', '65.2', '45.86', '204', '290',],
+                ['Public Space', 'Unknown Weather', 42, ' ', '#ff9e3d', '20.59', '63.64', '204', '66',],
+                ['Public Space', 'Cloudy', 13, ' ', '#ff9e3d', '6.37', '46.43', '204', '28',],
+                ['Public Space', 'Rain', 10, ' ', '#ff9e3d', '4.9', '52.63', '204', '19',],
+                ['Public Space', 'S', 2, ' ', '#ff9e3d', '0.98', '40.0', '204', '5',],
+                ['Public Space', 'F', 3, ' ', '#ff9e3d', '1.47', '100.0', '204', '3',],
+                ['Public Space', 'Indoors', 0, ' ', '#ff9e3d', '0.0', '0.0', '204', '84',],
+                ['Residential', 'Clear', 94, ' ', '#ff9e3d', '52.81', '32.41', '178', '290',],
+                ['Residential', 'Unknown Weather', 18, ' ', '#ff9e3d', '10.11', '27.27', '178', '66',],
+                ['Residential', 'Cloudy', 9, ' ', '#ff9e3d', '5.06', '32.14', '178', '28',],
+                ['Residential', 'Rain', 8, ' ', '#ff9e3d', '4.49', '42.11', '178', '19',],
+                ['Residential', 'S', 1, ' ', '#ff9e3d', '0.56', '20.0', '178', '5',],
+                ['Residential', 'F', 0, ' ', '#ff9e3d', '0.0', '0.0', '178', '3',],
+                ['Residential', 'Indoors', 0, ' ', '#ff9e3d', '0.0', '0.0', '178', '84',],
+                ['Commercial', 'Clear', 48, ' ', '#ff9e3d', '56.47', '16.55', '85', '290',],
+                ['Commercial', 'Unknown Weather', 5, ' ', '#ff9e3d', '5.88', '7.58', '85', '66',],
+                ['Commercial', 'Cloudy', 5, ' ', '#ff9e3d', '5.88', '17.86', '85', '28',],
+                ['Commercial', 'Rain', 1, ' ', '#ff9e3d', '1.18', '5.26', '85', '19',],
+                ['Commercial', 'S', 2, ' ', '#ff9e3d', '2.35', '40.0', '85', '5',],
+                ['Commercial', 'F', 0, ' ', '#ff9e3d', '0.0', '0.0', '85', '3',],
+                ['Commercial', 'Indoors', 0, ' ', '#ff9e3d', '0.0', '0.0', '85', '84',],
+                ['Government', 'Clear', 14, ' ', '#ff9e3d', '50.0', '4.83', '28', '290',],
+                ['Government', 'Unknown Weather', 1, ' ', '#ff9e3d', '3.57', '1.52', '28', '66',],
+                ['Government', 'Cloudy', 1, ' ', '#ff9e3d', '3.57', '3.57', '28', '28',],
+                ['Government', 'Rain', 0, ' ', '#ff9e3d', '0.0', '0.0', '28', '19',],
+                ['Government', 'S', 0, ' ', '#ff9e3d', '0.0', '0.0', '28', '5',],
+                ['Government', 'F', 0, ' ', '#ff9e3d', '0.0', '0.0', '28', '3',],
+                ['Government', 'Indoors', 0, ' ', '#ff9e3d', '0.0', '0.0', '28', '84',],
+                ['Public Space', 'Clear', 0, ' ', '#6dc8cf', '0.0', '0.0', '204', '290',],
+                ['Public Space', 'Unknown Weather', 0, ' ', '#6dc8cf', '0.0', '0.0', '204', '66',],
+                ['Public Space', 'Cloudy', 0, ' ', '#6dc8cf', '0.0', '0.0', '204', '28',],
+                ['Public Space', 'Rain', 0, ' ', '#6dc8cf', '0.0', '0.0', '204', '19',],
+                ['Public Space', 'S', 0, ' ', '#6dc8cf', '0.0', '0.0', '204', '5',],
+                ['Public Space', 'F', 0, ' ', '#6dc8cf', '0.0', '0.0', '204', '3',],
+                ['Public Space', 'Indoors', 1, ' ', '#6dc8cf', '0.49', '1.19', '204', '84',],
+                ['Residential', 'Clear', 1, ' ', '#6dc8cf', '0.56', '0.34', '178', '290',],
+                ['Residential', 'Unknown Weather', 0, ' ', '#6dc8cf', '0.0', '0.0', '178', '66',],
+                ['Residential', 'Cloudy', 0, ' ', '#6dc8cf', '0.0', '0.0', '178', '28',],
+                ['Residential', 'Rain', 0, ' ', '#6dc8cf', '0.0', '0.0', '178', '19',],
+                ['Residential', 'S', 0, ' ', '#6dc8cf', '0.0', '0.0', '178', '5',],
+                ['Residential', 'F', 0, ' ', '#6dc8cf', '0.0', '0.0', '178', '3',],
+                ['Residential', 'Indoors', 47, ' ', '#6dc8cf', '26.4', '55.95', '178', '84',],
+                ['Commercial', 'Clear', 0, ' ', '#6dc8cf', '0.0', '0.0', '85', '290',],
+                ['Commercial', 'Unknown Weather', 0, ' ', '#6dc8cf', '0.0', '0.0', '85', '66',],
+                ['Commercial', 'Cloudy', 0, ' ', '#6dc8cf', '0.0', '0.0', '85', '28',],
+                ['Commercial', 'Rain', 0, ' ', '#6dc8cf', '0.0', '0.0', '85', '19',],
+                ['Commercial', 'S', 0, ' ', '#6dc8cf', '0.0', '0.0', '85', '5',],
+                ['Commercial', 'F', 0, ' ', '#6dc8cf', '0.0', '0.0', '85', '3',],
+                ['Commercial', 'Indoors', 24, ' ', '#6dc8cf', '28.24', '28.57', '85', '84',],
+                ['Government', 'Clear', 0, ' ', '#6dc8cf', '0.0', '0.0', '28', '290',],
+                ['Government', 'Unknown Weather', 0, ' ', '#6dc8cf', '0.0', '0.0', '28', '66',],
+                ['Government', 'Cloudy', 0, ' ', '#6dc8cf', '0.0', '0.0', '28', '28',],
+                ['Government', 'Rain', 0, ' ', '#6dc8cf', '0.0', '0.0', '28', '19',],
+                ['Government', 'S', 0, ' ', '#6dc8cf', '0.0', '0.0', '28', '5',],
+                ['Government', 'F', 0, ' ', '#6dc8cf', '0.0', '0.0', '28', '3',],
+                ['Government', 'Indoors', 12, ' ', '#6dc8cf', '42.86', '14.29', '28', '84',],
+
+            ],
+            type: 'sankey',
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<b>{point.fromNode.name} → {point.toNode.name} [{point.weight}]</b> <br></br><br>{point.fromNode.name}: {point.fromp}% ({point.weight}/{point.fromt})</br><br>{point.toNode.name}: {point.top}% ({point.weight}/{point.tot})</br>',
+                nodeFormatter: function () {
+                    var result = '';
+
+                    Highcharts.each(this.linksFrom, function (el) {
+                        result += (el.tooltip && result ? ',' : '') + el.tooltip;
+                    });
+
+                    return result;
+                }
+            },
+
+
+        }]
+
+    });
+
+</script>
+
+</html>
